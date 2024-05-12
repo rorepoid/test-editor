@@ -1,12 +1,12 @@
 import OrderedMap from "orderedmap";
 import {
+	Schema,
 	type MarkSpec,
 	type NodeSpec,
-	Schema,
 	type SchemaSpec,
 } from "prosemirror-model";
-import { addListNodes } from "prosemirror-schema-list";
 import { schema } from "prosemirror-schema-basic";
+import { addListNodes } from "prosemirror-schema-list";
 
 const { doc, heading, paragraph, text } = schema.spec.nodes.toObject();
 const nodes: OrderedMap<NodeSpec> = OrderedMap.from({
@@ -25,4 +25,4 @@ const spec: SchemaSpec = {
 
 const customSchema = new Schema(spec);
 
-export { schema, customSchema };
+export { customSchema, schema };
