@@ -7,6 +7,8 @@ import {
 } from "prosemirror-model";
 import { schema } from "prosemirror-schema-basic";
 import { addListNodes } from "prosemirror-schema-list";
+import { link } from "./marks/link.ts";
+import { strong } from "./marks/strong.ts";
 import { doc } from "./nodes/doc.ts";
 import { heading } from "./nodes/heading.ts";
 import { paragraph } from "./nodes/paragraph.ts";
@@ -19,7 +21,6 @@ const nodes: OrderedMap<NodeSpec> = OrderedMap.from({
 	text,
 });
 
-const { link, strong } = schema.spec.marks.toObject();
 const marks: OrderedMap<MarkSpec> = OrderedMap.from({ link, strong });
 
 const spec: SchemaSpec = {
