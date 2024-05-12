@@ -1,5 +1,7 @@
+.DEFAULT_GOAL:= dev
+
 deps: # Install dependencies
-	@pnpm install
+	@npm install
 
 dev: # Run development server
-	@pnpm dev
+	@node --run dev

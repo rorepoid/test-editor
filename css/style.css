@@ -1,0 +1,24 @@
+@import "./normalize.css";
+@import "./variables.css";
+
+#container {
+  display: flex;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.aside {
+  max-width: var(--aside-length);
+  width: 100%;
+  background-color: peru;
+}
+
+#editor {
+  max-width: calc(100% - var(--aside-length));
+  margin: auto 1rem auto;
+}
+
+#container * {
+  max-width: 100%;
+}
