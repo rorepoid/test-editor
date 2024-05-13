@@ -1,25 +1,15 @@
+import type { NodeSpec } from "prosemirror-model";
+
 export const heading = {
 	attrs: {
 		level: {
-			default: 1,
+			default: 4,
 		},
 	},
 	content: "inline*",
 	group: "block",
 	defining: true,
 	parseDOM: [
-		{
-			tag: "h1",
-			attrs: {
-				level: 1,
-			},
-		},
-		{
-			tag: "h2",
-			attrs: {
-				level: 2,
-			},
-		},
 		{
 			tag: "h3",
 			attrs: {
@@ -45,4 +35,7 @@ export const heading = {
 			},
 		},
 	],
-};
+	toDOM(node) {
+		return [`h${node.attrs.level}`, 0];
+	},
+} as NodeSpec;

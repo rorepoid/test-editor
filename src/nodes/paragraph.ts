@@ -1,3 +1,5 @@
+import type { NodeSpec } from "prosemirror-model";
+
 export const paragraph = {
 	content: "inline*",
 	group: "block",
@@ -6,4 +8,7 @@ export const paragraph = {
 			tag: "p",
 		},
 	],
-};
+	toDOM(_node) {
+		return ["p", 0];
+	},
+} as NodeSpec;
