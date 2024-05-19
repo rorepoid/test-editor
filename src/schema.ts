@@ -12,16 +12,16 @@ import { doc } from "./nodes/doc.ts";
 import { heading } from "./nodes/heading.ts";
 import { paragraph } from "./nodes/paragraph.ts";
 import { text } from "./nodes/text.ts";
-import { image } from "./nodes/image";
 import { code_block } from "./nodes/codeblock";
+import { figure } from "./nodes/figure.ts";
 
 const nodes: OrderedMap<NodeSpec> = OrderedMap.from({
 	doc,
 	heading,
 	paragraph,
 	text,
-	image,
 	code_block,
+	figure,
 });
 
 const marks: OrderedMap<MarkSpec> = OrderedMap.from({ link, strong });
