@@ -14,6 +14,7 @@ import { paragraph } from "./nodes/paragraph.ts";
 import { text } from "./nodes/text.ts";
 import { code_block } from "./nodes/codeblock";
 import { figure } from "./nodes/figure.ts";
+import { blockquote } from "./nodes/blockquote.ts";
 
 const nodes: OrderedMap<NodeSpec> = OrderedMap.from({
 	doc,
@@ -22,6 +23,7 @@ const nodes: OrderedMap<NodeSpec> = OrderedMap.from({
 	text,
 	code_block,
 	figure,
+	blockquote,
 });
 
 const marks: OrderedMap<MarkSpec> = OrderedMap.from({ link, strong });

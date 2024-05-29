@@ -6,6 +6,7 @@ import { EditorState } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { DOMParser } from "prosemirror-model";
 import { content } from "./content";
+// import { schema } from "prosemirror-schema-basic";
 
 const prosemirrorContent = document.createElement("div");
 const prosemirrorEditor = document.querySelector("#editor");
