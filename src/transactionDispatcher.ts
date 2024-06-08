@@ -9,9 +9,7 @@ class TransactionDispatcher {
 		debugBeforeChange: boolean,
 		debugAfterChange: boolean,
 	) {
-		if (transaction.docChanged) {
-			this.updateDebugBar(transaction, debugBar);
-		}
+		this.updateDebugBar(transaction, debugBar);
 
 		if (transaction.docChanged && debugBeforeChange) {
 			// biome-ignore lint/suspicious/noDebugger: <explanation>
@@ -33,15 +31,16 @@ class TransactionDispatcher {
 			) as Element;
 			transactionSelection.innerHTML = `<pre>${JSON.stringify(transaction.selection.toJSON(), null, 2)}</pre>`;
 
-			const appliedChanges = debugBar.querySelector(
-				"#applied-changes",
-			) as Element;
-			appliedChanges.innerHTML = "";
+			if (transaction.docChanged) {
+				const appliedChanges = debugBar.querySelector(
+					"#applied-changes",
+				) as Element;
+				appliedChanges.innerHTML = "";
 
-			for (const step of transaction.steps) {
-				for (const content of step.toJSON().slice?.content ?? []) {
-					appliedChanges.innerHTML += `<p>${JSON.stringify(content, null, 2)}</p>`;
-					console.log(appliedChanges.innerHTML);
+				for (const step of transaction.steps) {
+					for (const content of step.toJSON().slice?.content ?? []) {
+						appliedChanges.innerHTML += `<p>${JSON.stringify(content, null, 2)}</p>`;
+					}
 				}
 			}
 		} catch (error) {
