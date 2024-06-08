@@ -6,6 +6,7 @@ import { EditorState } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { DOMParser } from "prosemirror-model";
 import { content } from "./content";
+import TransactionDispatcher from "./transactionDispatcher.ts";
 // import { schema } from "prosemirror-schema-basic";
 // import { text } from "./nodes/text";
 
@@ -30,41 +31,17 @@ const state = EditorState.create({
 		history(),
 	],
 });
+
 const view = new EditorView(prosemirrorEditor, {
 	state,
 	dispatchTransaction(transaction) {
-		if (transaction.docChanged) {
-			try {
-				const appliedChanges = debugBar.querySelector(
-					"#applied-changes",
-				) as Element;
-				appliedChanges.innerHTML = "";
-
-				for (const step of transaction.steps) {
-					for (const content of step.toJSON().slice?.content ?? []) {
-						appliedChanges.innerHTML += `<p>${JSON.stringify(content, null, 2)}</p>`;
-						console.log(appliedChanges.innerHTML);
-					}
-				}
-			} catch (error) {
-				console.error(error);
-			}
-		}
-
-		if (transaction.docChanged && debugBeforeChange.checked) {
-			// biome-ignore lint/suspicious/noDebugger: <explanation>
-			debugger;
-		}
-
-		const transactionSelection = debugBar.querySelector(
-			"#transaction-selection",
-		) as Element;
-		transactionSelection.innerHTML = `<pre>${JSON.stringify(transaction.selection.toJSON(), null, 2)}</pre>`;
-		view.updateState(view.state.apply(transaction));
-
-		if (transaction.docChanged && debugAfterChange.checked) {
-			// biome-ignore lint/suspicious/noDebugger: <explanation>
-			debugger;
-		}
+		const dispatcher = new TransactionDispatcher();
+		dispatcher.dispatch(
+			transaction,
+			view,
+			debugBar,
+			debugBeforeChange.checked,
+			debugAfterChange.checked,
+		);
 	},
 });
