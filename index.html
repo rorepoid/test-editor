@@ -12,7 +12,21 @@
 <body>
   <div id="container">
     <main id="editor"></main>
-    <aside class="aside">Hola</aside>
+    <aside id="sidebar" class="aside">
+      <div>
+        <label>
+          <input type="checkbox" name="debug-before-change">
+          Depurar antes de cambiar
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" name="debug-after-change">
+          Depurar después de cambiar
+        </label>
+      </div>
+      <div id="debug-bar"></div>
+    </aside>
   </div>
   <script type="module" src="/src/main.ts"></script>
 </body>

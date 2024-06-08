@@ -7,13 +7,17 @@ import { EditorView } from "prosemirror-view";
 import { DOMParser } from "prosemirror-model";
 import { content } from "./content";
 // import { schema } from "prosemirror-schema-basic";
+// import { text } from "./nodes/text";
 
-const prosemirrorContent = document.createElement("div");
-const prosemirrorEditor = document.querySelector("#editor");
-
-if (!prosemirrorContent || !prosemirrorEditor) {
-	throw new ReferenceError("Editor element not found");
-}
+const prosemirrorContent = document.createElement("div") as Element;
+const prosemirrorEditor = document.querySelector("#editor") as Element;
+const debugBar = document.querySelector("#debug-bar") as Element;
+const debugBeforeChange = document.querySelector(
+	"[name='debug-before-change']",
+) as HTMLInputElement;
+const debugAfterChange = document.querySelector(
+	"[name='debug-after-change']",
+) as HTMLInputElement;
 
 prosemirrorContent.innerHTML = content;
 
@@ -29,10 +33,17 @@ const state = EditorState.create({
 const view = new EditorView(prosemirrorEditor, {
 	state,
 	dispatchTransaction(transaction) {
-		// console.log(transaction);
+		if (transaction.docChanged && debugBeforeChange.checked) {
+			// biome-ignore lint/suspicious/noDebugger: <explanation>
+			debugger;
+		}
+
+		debugBar.innerHTML = `<pre>${JSON.stringify(transaction.selection.toJSON(), null, 2)}</pre>`;
 		view.updateState(view.state.apply(transaction));
-		console.log(view.state.doc.content);
+
+		if (transaction.docChanged && debugAfterChange.checked) {
+			// biome-ignore lint/suspicious/noDebugger: <explanation>
+			debugger;
+		}
 	},
 });
-
-// console.log(view.state.schema.nodes);
