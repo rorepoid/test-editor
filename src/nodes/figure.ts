@@ -20,7 +20,6 @@ export const figure = {
 						alt: "vite",
 					};
 				}
-				console.log("node", node.outerHTML);
 				return {
 					src: img.getAttribute("src"),
 					alt: img.getAttribute("alt"),
@@ -29,7 +28,6 @@ export const figure = {
 		},
 	],
 	toDOM(_node) {
-		console.log("node", _node);
 		return [
 			"figure",
 			["img", { src: _node.attrs.src }],
