@@ -106,6 +106,18 @@ const debugBarPlugin = (
 				return false;
 			},
 		},
+		view: (view) => {
+			return {
+				update: (view) => {
+					new TransactionDispatcher().dispatch(
+						view.state.tr,
+						debugBar,
+						debugBeforeChange.checked,
+						debugAfterChange.checked,
+					);
+				},
+			};
+		},
 	});
 };
 
