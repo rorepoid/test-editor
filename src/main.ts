@@ -6,7 +6,7 @@ import { EditorState } from "prosemirror-state";
 import { EditorView } from "prosemirror-view";
 import { DOMParser } from "prosemirror-model";
 import { content } from "./content";
-import TransactionDispatcher from "./transactionDispatcher.ts";
+import { debugBarPlugin } from "./plugins/transactionDispatcher.ts";
 // import { schema } from "prosemirror-schema-basic";
 // import { text } from "./nodes/text";
 
@@ -29,19 +29,20 @@ const state = EditorState.create({
 		keymap(baseKeymap),
 		keymap({ "Mod-z": undo, "Mod-Z": redo, "Mod-y": redo }),
 		history(),
+		debugBarPlugin(debugBar, debugBeforeChange, debugAfterChange),
 	],
 });
 
 const view = new EditorView(prosemirrorEditor, {
 	state,
-	dispatchTransaction(transaction) {
-		const dispatcher = new TransactionDispatcher();
-		dispatcher.dispatch(
-			transaction,
-			view,
-			debugBar,
-			debugBeforeChange.checked,
-			debugAfterChange.checked,
-		);
-	},
+	// dispatchTransaction(transaction) {
+	// 	const dispatcher = new TransactionDispatcher();
+	// 	dispatcher.dispatch(
+	// 		transaction,
+	// 		view,
+	// 		debugBar,
+	// 		debugBeforeChange.checked,
+	// 		debugAfterChange.checked,
+	// 	);
+	// },
 });
