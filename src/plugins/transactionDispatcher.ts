@@ -37,35 +37,39 @@ class TransactionDispatcher {
 				for (const step of transaction.steps) {
 					for (const content of step.toJSON().slice.content ?? []) {
 						console.log(content);
-						// debugger;
 
-						const box = document.createElement("div");
-						// box.style.backgroundColor = "rgb(85, 85, 187)";
-						box.style.backgroundColor = "rgb(119, 119, 238)";
-						box.style.overflow = "auto";
+						const $nodeContainer = document.createElement("div");
+						$nodeContainer.classList.add("node-container");
 
-						const div = document.createElement("div");
-						div.style.backgroundColor = "rgb(119, 119, 238)";
-						div.innerHTML = `<strong>${content.type}</strong>`;
+						const $node = document.createElement("div");
+						$node.classList.add("node");
+
+						$node.innerHTML += `<strong>${content.type}</strong>`;
+						$nodeContainer.appendChild($node);
+
 						if (content.text) {
-							div.innerHTML += `"${content.text}"`;
+							$node.innerHTML += `"${content.text}"`;
 						} else if (content.content) {
+							const $boxContainer = document.createElement("div");
+							$boxContainer.classList.add("box-container");
 							for (const node of content.content) {
-								div.innerHTML += `<br />tyyyyyype: ${node.type}`;
-								div.innerHTML += `<br />"${node.text}"`;
+								const $box = document.createElement("div");
+								$box.classList.add("box");
+								$box.innerHTML += `"${node.text}"`;
 								if (node.marks) {
 									for (const mark of node.marks) {
 										const $mark = document.createElement("div");
-										$mark.style.backgroundColor = "rgb(221, 153, 68)";
+										$mark.classList.add("mark");
 										$mark.innerHTML = `<strong>${mark.type}</strong>`;
-										div.appendChild($mark);
+										$box.appendChild($mark);
 									}
 								}
+								$boxContainer.appendChild($box);
 							}
+							$node.appendChild($boxContainer);
 						}
 
-						box.appendChild(div);
-						appliedChanges.appendChild(box);
+						appliedChanges.appendChild($nodeContainer);
 					}
 				}
 			}

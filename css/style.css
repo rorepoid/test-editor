@@ -45,8 +45,60 @@
   box-sizing: content-box;
   /* align-self: start; */
   overflow: scroll;
+  width: fit-content;
+  display: grid;
+  gap: 1rem
 }
 
 .ProseMirror {
   min-height: 20rem;
+}
+
+.node-container {
+    background-color: #000066;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    /* overflow: scroll; */
+    /* height: 100vh; */
+    /* margin: 0; */
+}
+
+.node {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    /* overflow: scroll; */
+}
+
+.node > div {
+    margin-bottom: 10px;
+}
+
+.box-container {
+    display: flex;
+    gap: 10px;
+    width: max-content;
+}
+
+.box {
+    background-color: #333366;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: white;
+}
+
+.mark {
+    background-color: #996633;
+    color: white;
+    border-radius: 3px;
+    padding: 2px 5px;
+    margin-top: 5px;
+    align-self: flex-start;
 }
